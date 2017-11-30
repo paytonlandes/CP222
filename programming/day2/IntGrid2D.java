@@ -25,8 +25,8 @@ public class IntGrid2D implements IIntGrid2D{
     lrx = lrx1;
     lry = lry1;
     fill = fill1;
-    int width = 3;
-    int height = 3;
+    int width = lrx - ulx + 1;
+    int height = uly - lry + 1;
     grid = new char[width][height];
     for (int i = 0; i < width; i++) {
       for (int h = 0; h < height; h++) {
