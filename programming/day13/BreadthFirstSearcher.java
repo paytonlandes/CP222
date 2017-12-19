@@ -8,20 +8,19 @@ public class BreadthFirstSearcher{
    * @return if a path of any length exists
    */
   public boolean pathExists(IGraph<N,W> g, INode<N> s, INode<N> e){
-      DoubleLinkList visList =  new DoubleLinkList();
-      ArrayQueue<INode<N>> Q = new ArrayQueue<INode<N>>(g.nodesSize());
-      Q.enqueue(s);
-      visList.append(s);
-      while (Q.size > 0){ // Process each vertex on Q
-        INode<N> v = Q.dequeue();
-        for(INode<N> i : g.getNeighbors(s)){
-          for(INode<N> j : visList){
-            if (i.equals(e)){return true;}
-            if (i.equals(j)){continue;}
-            Q.enqueue(i);
-          }
+      boolean destinationFound = false;
+      IEdge<N,W>[] theNeighbors = g.getEdgesFrom(s);
+      for (int i = 0; i < theNeighbors.length; i++){
+        if (theNeighbors[i].getDestination() == e){
+          destinationFound = true;
+          return destinationFound;
+        }
+        else {
+          destinationFound = pathExists(g,theNeighbors[i].getDestination(),e);
+          if (destinationFound) { return true; }
         }
       }
+      return destinationFound;
     }
 
 
